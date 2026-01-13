@@ -4,6 +4,8 @@
 
 # Development
 
+Create `secrets/` in this project directory with 2 files named `minio_passwd` and `pg_passwd`. Set random passwords to them.
+
 ```sh
 docker compose -f docker-compose.dev.yml watch
 ```
