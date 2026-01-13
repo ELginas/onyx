@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:18-alpine
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 5s
@@ -22,7 +22,7 @@ services:
   minio:
     image: minio/minio:latest
     command: server /data --console-address ":9001"
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "mc", "ready", "local"]
       interval: 5s
@@ -40,6 +40,26 @@ services:
       - 9001:9001
     volumes:
       - minio-data:/data
+  frontend-web:
+    build:
+      context: frontend/web
+      dockerfile: Dockerfile
+      target: development
+    restart: unless-stopped
+    networks:
+      - shared
+    ports:
+      - 5173:5173
+    develop:
+      watch:
+        - action: sync
+          path: frontend/web
+          target: /app
+          ignore:
+            - frontend/web/package.json
+        - action: rebuild
+          path: frontend/web/package.json
+          target: /app/package.json
 
 networks:
   shared:

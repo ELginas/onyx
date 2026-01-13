@@ -1,0 +1,19 @@
+{
+  "name": "onyx-common",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Shared frontend code between mobile and web",
+  "author": "ELginas",
+  "homepage": "https://github.com/ELginas/onyx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ELginas/onyx.git"
+  },
+  "license": "GPL-3.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
