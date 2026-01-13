@@ -50,16 +50,10 @@ services:
       - shared
     ports:
       - 5173:5173
-    develop:
-      watch:
-        - action: sync
-          path: frontend/web
-          target: /app
-          ignore:
-            - frontend/web/package.json
-        - action: rebuild
-          path: frontend/web/package.json
-          target: /app/package.json
+    volumes:
+      - ./frontend/web:/app/web
+      - ./frontend/common:/app/common
+      - pnpm-cache:/pnpm
 
 networks:
   shared:
@@ -67,6 +61,7 @@ networks:
 volumes:
   db-data:
   minio-data:
+  pnpm-cache:
 
 secrets:
   pg_passwd:
