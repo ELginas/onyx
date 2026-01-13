@@ -1,0 +1,2 @@
+[build]
+pre_cmd = ["go mod tidy"]

@@ -54,6 +54,18 @@ services:
       - ./frontend/web:/app/web
       - ./frontend/common:/app/common
       - pnpm-cache:/pnpm
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+      target: development
+    restart: unless-stopped
+    environment:
+      LISTEN_ADDR: 0.0.0.0:5000
+    networks:
+      - shared
+    volumes:
+      - ./backend:/app
 
 networks:
   shared:
